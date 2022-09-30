@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useContext} from 'react'
+import {useContext, useState} from 'react'
 import { Box, CardMedia, FormControl, InputBase, MenuItem, Select, SelectChangeEvent, Stack, Typography } from "@mui/material"
 import banner from '../assets/banner.png'
 import theme, { Colors } from "../styles/theme"
@@ -7,13 +7,27 @@ import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import TableList from '../components/TableList';
 import { DataContext } from '../context/DataContext';
+import dataRespon from '../api/dataRespon';
 export default function Home() {
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = useState('');
+  const [search,setSearch] = useState('')
+  const [dataSearch, setDataSearch] = useState([])
   const data = useContext(DataContext)
-  console.log(data)
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value);
   };
+  const handleSearchChange = (event:any) => {
+    setSearch(event.target.value);
+  };
+  const handleSubmit = (event:any) =>{
+    event.preventDefault();
+    const fetch = async () =>{
+      const result = await dataRespon.getSearch(search)
+      console.log(result)
+    }
+    fetch()
+  }
+
   const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -64,7 +78,7 @@ export default function Home() {
         }} src={banner} alt="banner" />
       </Box>
       <Stack mt={2} direction={'row'} justifyContent='space-between' alignItems={'center'}>
-        <Box>
+        <Box component='form' onSubmit={handleSubmit}>
           <Search sx={{ background: theme.palette.primary.main,
             '&:hover':{
               background: theme.palette.primary.main
@@ -74,6 +88,7 @@ export default function Home() {
               <SearchIcon sx={{color:'#fff'}}/>
             </SearchIconWrapper>
             <StyledInputBase
+            onChange={handleSearchChange}
               sx={{
                 color:theme.palette.secondary.main
               }}

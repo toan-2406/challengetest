@@ -1,8 +1,14 @@
 export const FormatCurrency = (currency:number) =>{
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        maximumSignificantDigits: 3
-    })
-    return formatter.format(currency)
+    const usd = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+      }).format(currency);
+      return usd
+}
+
+export const CheckNumberInteger = (value:number) => {
+    if(value >= 0){
+        return true;
+    }
+    return false;
 }

@@ -7,7 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import styled from '@mui/material/styles/styled';
 import { CardMedia, TableContainer, Typography } from '@mui/material';
-import { FormatCurrency } from '../utils';
+import { CheckNumberInteger, FormatCurrency } from '../utils';
+import theme from '../styles/theme';
 
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
@@ -30,7 +31,7 @@ interface DataProps {
 }
 export default function TableList(props:any) {
   const {data} = props
-
+console.log(data)
   return (
     <React.Fragment>
       <TableContainer>
@@ -40,9 +41,9 @@ export default function TableList(props:any) {
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>#</Cell>
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>Name</Cell>
             <Cell  sx={(theme)=> ({  color:theme.palette.secondary.main})}>Price</Cell>
-            <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>1h %</Cell>
-            <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>24h %</Cell>
-            <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>7d %</Cell>
+
+            <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>Change</Cell>
+
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})} align="right">Market cap</Cell>
           </TableRow>
         </TableHead>
@@ -59,10 +60,13 @@ export default function TableList(props:any) {
               </Typography>
               </Cell>
               <Cell >{FormatCurrency(row.price)}</Cell>
-              <Cell>{row.hour}</Cell>
-              <Cell>{row.day}</Cell>
-              <Cell>{row.week}</Cell>
-              <Cell align="right">{FormatCurrency(row.marketCap)}</Cell>
+              <Cell><Typography sx={{
+                color:CheckNumberInteger(parseFloat(row.change)) ? theme.palette.success.main : theme.palette.error.main
+              }}>
+                {row.change}%
+                </Typography></Cell>
+            
+              <Cell align="right">{FormatCurrency(row.marketCap).slice(0,-3)}</Cell>
             </TableRow>
           ))}
         </TableBody>

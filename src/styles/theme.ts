@@ -72,10 +72,16 @@ const theme = createTheme({
     },
     primary:{
       main: Colors.primary,
-      light: Colors.white
+      light: Colors.white,
     },
     secondary:{
       main: Colors.textWhite
+    },
+    error:{
+      main: Colors.error
+    },
+    success:{
+      main: Colors.success
     }
   }
 });
