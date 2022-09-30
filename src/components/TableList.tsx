@@ -9,31 +9,6 @@ import styled from '@mui/material/styles/styled';
 import { CardMedia, TableContainer, Typography } from '@mui/material';
 import { FormatCurrency } from '../utils';
 
-// Generate Order Data
-function createData(
-  id: number,
-  name: string,
-  price: number,
-  hour: number,
-  day: number,
-  week: number,
-  totalmaket: number
-) {
-  return { id, name, price, hour, day,week,totalmaket };
-}
-
-const rows = [
-  createData(
-    1,
-    'BITCOIN BTC',
-    18000,
-    100,
-    200,
-    400,
-    312.44,
-  ),
-];
-
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
@@ -64,7 +39,7 @@ export default function TableList(props:any) {
           <TableRow >
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>#</Cell>
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>Name</Cell>
-            <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>Price</Cell>
+            <Cell  sx={(theme)=> ({  color:theme.palette.secondary.main})}>Price</Cell>
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>1h %</Cell>
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>24h %</Cell>
             <Cell sx={(theme)=> ({  color:theme.palette.secondary.main})}>7d %</Cell>
@@ -75,19 +50,19 @@ export default function TableList(props:any) {
           {data?.coins?.map((row:any,index:any) => (
             <TableRow key={row.uuid} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <Cell>{index + 1}</Cell>
-              <Cell sx={{display:'flex',alignItems:'center',columnGap:'10px'}}><Typography>
+              <Cell  sx={{display:'flex',alignItems:'center',columnGap:'10px'}}><Typography sx={{maxWidth:'150px'}}>
               {row.name}
               </Typography>
-                <CardMedia src={row.iconUrl} sx={{height:'30px',width:'30px',objectFit:'contain'}} alt='icon' component='img'/>
-                <Typography>
+                <CardMedia src={row.iconUrl} sx={{height:'25px',width:'25px',objectFit:'contain'}} alt='icon' component='img'/>
+                <Typography sx={(theme) =>({color:theme.palette.secondary.main,fontSize:14,fontWeight:400})}>
               {row.symbol}
               </Typography>
               </Cell>
-              <Cell>{FormatCurrency(row.price)}</Cell>
+              <Cell >{FormatCurrency(row.price)}</Cell>
               <Cell>{row.hour}</Cell>
               <Cell>{row.day}</Cell>
               <Cell>{row.week}</Cell>
-              <Cell align="right">{FormatCurrency(Math.ceil(row.marketCap))}</Cell>
+              <Cell align="right">{FormatCurrency(row.marketCap)}</Cell>
             </TableRow>
           ))}
         </TableBody>

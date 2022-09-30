@@ -41,7 +41,7 @@ function App() {
               <Route
                 key={index}
                 path={item.path}
-                element={<Container maxWidth="md">{item.component}</Container>}
+                element={<Container maxWidth="lg">{item.component}</Container>}
               />
             );
           })}
