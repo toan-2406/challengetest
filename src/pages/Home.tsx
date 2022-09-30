@@ -8,24 +8,24 @@ import SearchIcon from '@mui/icons-material/Search';
 import TableList from '../components/TableList';
 import { DataContext } from '../context/DataContext';
 import dataRespon from '../api/dataRespon';
+import SelectOption from '../components/SelectOption';
 export default function Home() {
-  const [age, setAge] = useState('');
+
   const [search,setSearch] = useState('')
   const [dataSearch, setDataSearch] = useState([])
   const data = useContext(DataContext)
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
-  const handleSearchChange = (event:any) => {
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
   };
-  const handleSubmit = (event:any) =>{
+  const handleSubmit = (event:React.FormEvent<HTMLFormElement>) =>{
     event.preventDefault();
-    const fetch = async () =>{
-      const result = await dataRespon.getSearch(search)
-      console.log(result)
-    }
-    fetch()
+    // const fetch = async () =>{
+    //   const result = await dataRespon.getSearch(search)
+    //   console.log(result)
+    // }
+    // fetch()
+    console.log(search)
   }
 
   const Search = styled('div')(({ theme }) => ({
@@ -99,32 +99,10 @@ export default function Home() {
           </Search>
 
         </Box>
-        <Box>
-          <FormControl sx={{ m: 1, minWidth: 120, background: theme.palette.primary.main, borderRadius: '8px' }} size='small'>
-            <Select
-              sx={{
-                border: 'none',
-                color: theme.palette.primary.light,
-                '& .MuiSelect-outlined': {
-                  border: 'none', outline: 'none'
-                },
-                '& .MuiSelect-icon': {
-                  color: theme.palette.primary.light
-                }
-              }}
-              value={age}
-              onChange={handleChange}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>All pools</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
-            </Select>
-          </FormControl>
+        <Box sx={{display:'flex'}}>
+        <SelectOption/>
+        <SelectOption/>
+        <SelectOption/>
         </Box>
       </Stack>
       <Box sx={{
